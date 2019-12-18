@@ -88,3 +88,7 @@ function findMovie(searchTerm) {
     postMovie(found);
 
 }
+
+function createMovie(){
+    
+}
