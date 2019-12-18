@@ -1,10 +1,39 @@
-MOVIE = "https://ghibliapi.herokuapp.com/films"
+MOVIE = "http://localhost:3000/films"
 
 var localData;
 
+
 document.addEventListener("DOMContentLoaded", () => {
+    addForm = document.querySelector("#create-movie")
     fetchData();
     searchMovie()
+    // createMovie();
+
+    addForm.addEventListener('submit', e => {
+        e.preventDefault()
+
+        // movieObj = {
+
+        //     "title": addForm.title.value,
+        //     "description": addForm.description.value
+
+        
+
+        fetch(MOVIE, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ "title": addForm.title.value, "description": addForm.description.value })
+
+        })
+
+
+
+        // postMovie(movieObj)
+
+    })
+
 })
 
 
@@ -13,7 +42,6 @@ function fetchData() {
     fetch(MOVIE)
         .then(resp => resp.json())
         .then(data => allMovies(data));
-
 
 }
 
@@ -59,15 +87,12 @@ function deleteMovie(movie_id, movie_div) {
 // search 
 
 function searchMovie() {
-    const header = document.querySelector("header")
-    const input = document.createElement("input");
-    const searchButton = document.createElement("button");
-    searchButton.innerText = "Search";
 
-    header.append(input);
-    header.append(searchButton);
-    searchButton.addEventListener("click", function () {
-        findMovie(input.value)
+    const searchButton = document.querySelector("#search-button");
+
+
+    searchButton.addEventListener("submit", function () {
+        findMovie(searchInput)
     })
 }
 
@@ -89,6 +114,10 @@ function findMovie(searchTerm) {
 
 }
 
-function createMovie(){
-    
-}
+// function createMovie() {
+
+//     createButton.addEventListener("click", function () {
+//         findMovie(input.value)
+//     })
+
+// }
